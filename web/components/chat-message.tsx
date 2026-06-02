@@ -82,9 +82,9 @@ export function ChatMessage({ message }: ChatMessageProps) {
                         >
                           <CardContent className="p-3">
                             <p className="text-sm font-medium truncate">
-                              {source.metadata?.source ||
-                                source.metadata?.filename ||
-                                'N/A'}
+                              {source.metadata?.filename ||
+                                source.metadata?.source ||
+                                'Document'}
                             </p>
                             <p className="text-sm text-muted-foreground">
                               Page {source.metadata?.loc?.pageNumber || 'N/A'}

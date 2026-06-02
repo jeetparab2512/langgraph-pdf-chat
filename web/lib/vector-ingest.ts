@@ -17,12 +17,21 @@ function requireEnv(name: string): string {
 /** Index PDF chunks in Supabase (bypasses LangGraph dev server for reliability). */
 export async function ingestDocumentsToSupabase(
   docs: Document[],
+  threadId: string,
 ): Promise<void> {
   loadAgentEnv();
 
   const supabaseUrl = requireEnv('SUPABASE_URL');
   const supabaseKey = requireEnv('SUPABASE_SERVICE_ROLE_KEY');
   requireEnv('OPENAI_API_KEY');
+
+  const taggedDocs = docs.map((doc) => ({
+    ...doc,
+    metadata: {
+      ...doc.metadata,
+      thread_id: threadId,
+    },
+  }));
 
   const embeddings = new OpenAIEmbeddings({
     model: 'text-embedding-3-small',
@@ -35,5 +44,5 @@ export async function ingestDocumentsToSupabase(
     queryName: 'match_documents',
   });
 
-  await vectorStore.addDocuments(docs);
+  await vectorStore.addDocuments(taggedDocs);
 }

@@ -257,7 +257,22 @@ export default function Home() {
 
     setIsUploading(true);
     try {
+      let activeThreadId = threadId;
+      if (!activeThreadId) {
+        activeThreadId = await connectAgent();
+        if (!activeThreadId) {
+          toast({
+            title: 'Upload unavailable',
+            description:
+              'Start npm run dev:agent, then retry upload or click Retry on the banner.',
+            variant: 'destructive',
+          });
+          return;
+        }
+      }
+
       const formData = new FormData();
+      formData.append('threadId', activeThreadId);
       selectedFiles.forEach((file) => {
         formData.append('files', file);
       });

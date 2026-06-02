@@ -53,6 +53,8 @@ export type PDFDocument = Document & {
     };
     uuid?: string;
     source?: string;
+    filename?: string;
+    thread_id?: string;
   };
 };
 

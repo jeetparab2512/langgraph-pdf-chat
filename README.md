@@ -13,7 +13,7 @@ Chat with your PDF documents using **retrieval-augmented generation (RAG)**. Upl
 5. The agent **retrieves** relevant chunks and **streams** an answer.
 6. Click **View Sources** to see which PDF pages were used.
 
-The screenshot above shows a real session: a resume PDF was uploaded and the app summarized it with page-level citations.
+The screenshot above shows a real session: a resume PDF was uploaded, summarized, and cited by **filename** and page number (not temp file paths).
 
 ## How it works
 
@@ -146,10 +146,12 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Usage
 
-1. Click the **paperclip** and select a PDF.
+1. Click the **paperclip** and select a PDF (requires the chat agent to be running so a **thread** exists).
 2. Wait for the success toast (needs OpenAI quota).
 3. Type a question, e.g. *“What is this document about?”*
-4. Read the streamed answer and open **View Sources**.
+4. Read the streamed answer and open **View Sources** (shows the PDF **filename** and page number).
+
+Each chat thread only retrieves chunks tagged with that thread’s ID, so uploads from other sessions do not leak into answers.
 
 ## Troubleshooting
 

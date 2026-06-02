@@ -31,7 +31,12 @@ export async function POST(req: Request) {
       {
         input: { query: message },
         streamMode: ['messages', 'updates'],
-        config: { configurable: { ...qaStreamConfig } },
+        config: {
+          configurable: {
+            ...qaStreamConfig,
+            filterKwargs: { thread_id: threadId },
+          },
+        },
       },
     );
 

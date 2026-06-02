@@ -19,9 +19,9 @@ export async function processPDF(file: File): Promise<Document[]> {
     const loader = new PDFLoader(tempFilePath);
     const docs = await loader.load();
 
-    // Add filename to metadata for each document
     docs.forEach((doc) => {
       doc.metadata.filename = file.name;
+      doc.metadata.source = file.name;
     });
 
     return docs;

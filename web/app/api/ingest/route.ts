@@ -25,6 +25,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No files provided' }, { status: 400 });
     }
 
+    const threadId = formData.get('threadId');
+    if (typeof threadId !== 'string' || !threadId.trim()) {
+      return NextResponse.json(
+        { error: 'threadId is required (create a chat thread before uploading)' },
+        { status: 400 },
+      );
+    }
+
     if (files.length > UPLOAD_LIMITS.maxFiles) {
       return NextResponse.json(
         {
@@ -74,7 +82,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await ingestDocumentsToSupabase(allDocs);
+    await ingestDocumentsToSupabase(allDocs, threadId.trim());
 
     return NextResponse.json({
       message: 'Documents ingested successfully',
