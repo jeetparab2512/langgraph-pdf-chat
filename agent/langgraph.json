@@ -1,0 +1,9 @@
+{
+  "node_version": "20",
+  "graphs": {
+    "document_ingest": "./src/document_ingest/graph.ts:graph",
+    "document_qa": "./src/document_qa/graph.ts:graph"
+  },
+  "env": ".env",
+  "dependencies": ["."]
+}

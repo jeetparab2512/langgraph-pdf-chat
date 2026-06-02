@@ -1,0 +1,22 @@
+{
+  "name": "rag-pdf-chat",
+  "description": "RAG PDF chatbot with LangGraph agents and a Next.js web UI",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "workspaces": ["agent", "web"],
+  "scripts": {
+    "build": "npx turbo run build",
+    "lint": "npx turbo run lint",
+    "lint:fix": "npx turbo run lint:fix",
+    "format": "npx turbo run format",
+    "format:check": "npx turbo run format:check",
+    "dev:agent": "npm run langgraph:dev -w agent",
+    "dev:web": "npm run dev -w web",
+    "dev": "npx concurrently -n agent,web -c blue,green \"npm run dev:agent\" \"npm run dev:web\"",
+    "start": "npm run dev:web"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  }
+}
